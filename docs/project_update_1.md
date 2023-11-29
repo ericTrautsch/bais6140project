@@ -14,7 +14,7 @@ This visualization seeks to show the average New York City (NYC) resident the 'w
 
 To do this, it plans to focus on the interconnection of rat sightings, rodent inspections, and restaurant health inspection results. By learning from this data, the project seeks to provide practical insights and explore the historical trend and current impact of rat populations. 
 
-![rat logo](assets/ratlogo.png)
+![Project Logo](assets/ratlogo.png)
 
 **Implementation**
 
@@ -30,7 +30,7 @@ See Visualizations here: [https://public.tableau.com/app/profile/eric.trautsch/v
 
 Limited data preprocessing has been needed at this point. Relationships between the datasets have been made. There are some inconsistencies between the datasets, but those are resolved with calculated fields to change spelling/capitalization of strings. 
 
-![relationship graph](assets/relationship.png)
+![Data relationship graph](assets/relationship.png)
 
 Note: I have not included Data Dictionaries and the three included datasets in the Project Proposal. Please refer to it for information about the Data.
 
@@ -67,7 +67,7 @@ Viz about current rat populations/sightings, including focus on historical popul
 
 Using point marks and color channels, for the most part.
 
-![graph1](assets/LinewithDots.png)
+![Rat Sightings Visualization](assets/LinewithDots.png)
 
 Views are linked together in a single Tableau Story. See the current iteration here. [https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes](https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes)
 
@@ -75,7 +75,7 @@ For the second view, we have rat sightings overlayed on critical restaurant insp
 
 The design that I've used up to this point is focused on creating a format that can be viewed on somewhere like a subway. Being able to show new Yorkers this data in a more passive way can help promote general awareness, and a link to the usage could be included. This usage structure requires that some visualizations are able to be printed or displayed on a monitor (eg: the historical growth over time), and linked to the full interactive components of the visualization.
 
-![graph2](assets/RackMultipart20231128-1-4lmy3i_html_1ac2a5ae7497fed7.png)
+![Rats and Critical Resturant Violations](assets/RackMultipart20231128-1-4lmy3i_html_1ac2a5ae7497fed7.png)
 
 Viz attend to address:
 
@@ -83,8 +83,6 @@ Viz attend to address:
 - Public health concerns
 - Historical trends
 - Recommendations and suggestions based on previous
-
-**Usage Scenario**
 
 **Reflection**
 
@@ -96,23 +94,15 @@ The combination of three massive datasets has proven to be more difficult to ext
 
 **Project Management and Team Assessment**
 
-| **Task** | **Completed** | **Estimated Hours** | **Actual Hours** |
-| --- | --- | --- | --- |
-| Project Proposal |
- | 6 | 5 |
-| EDA | 11/09/2023 | 1 | 3 |
-| Iteration 1 complete | 11/12/2023 | 8 | 5 |
-| Iteration 2 complete |
- | |
- |
-| Final writeup completed |
- |
- |
- |
-| Project Presentation |
- |
- |
- |
+| **Task**                | **Completed** | **Estimated Hours** | **Actual Hours** |
+| ----------------------- | ------------- | ------------------- | ---------------- |
+| Project Proposal        | 11/02/2023    | 6                   | 5                |
+| EDA                     | 11/09/2023    | 1                   | 3                |
+| Iteration 1 complete    | 11/12/2023    | 8                   | 5                |
+| Iteration 2 complete    | 11/28/2023    | 6-10                |                  |
+| Final Presentation      |               | 5                   |                  |
+| Final Recording         |               | 2                   |                  |
+| Final writeup completed |               | 6                   |                  |
 
 All work was completed by Eric (only member of the project team).
 
