@@ -47,14 +47,13 @@ def story_page_one():
 
 # Define the second story page layout
 def story_page_two():
-    df = rat_sightings()
-    app.layout = html.Div([
+    return html.Div([
     html.H3("Community Board Data Visualization", className="text-center"),
     html.P("Select a borough and a community board to see their respective data visualizations."),
 
     dcc.Dropdown(
         id='borough-dropdown',
-        options=[{'label': b, 'value': b} for b in df['Borough'].unique()],
+        options=[{'label': b, 'value': b} for b in rat_sightings()['Borough'].unique()],
         placeholder="Select a Borough"
     ),
     dcc.Dropdown(
@@ -67,64 +66,58 @@ def story_page_two():
 
     # Note at the bottom of the page
     html.Div([
-        html.P("Note: Data collection practices may have changed in recent years. This has led to fewer sightings being attributed to unspecified community boards, resulting in a significant increase in sightings tracked over the past few years.")
+        html.P("Note: Data collection practices may have changed in recent years. This has led to fewer sightings being attributed to unspecified community boards, resulting in a significant increase in sightings tracked over the past few years")
     ], style={'textAlign': 'center', 'marginTop': '20px', 'fontSize': '0.9em'})
 ])
 
-# Callback to display the graphs only when options are selected
+# Callback to display the graphs when options are selected
 @app.callback(
     Output('visualization-container', 'children'),
     [Input('borough-dropdown', 'value'), Input('community-dropdown', 'value')]
 )
 def update_graphs(borough, community_board):
     if borough and community_board:
-        # Assuming you have functions or methods to create your map and additional visualizations
-        map_figure, additional_figure = update_visualizations(borough, community_board)  # Replace with your actual function
+        # Update visualizations based on selections
+        map_figure, additional_figure = update_visualizations(borough, community_board) 
         return [
             dcc.Graph(figure=map_figure),
             dcc.Graph(figure=additional_figure)
         ]
     return html.Div("Select both a borough and a community board to display the visualizations.", style={'textAlign': 'center', 'marginTop': '10px'})
 
-
+# Callback to populate the community dropdown based on the selected borough
 @app.callback(
     Output('community-dropdown', 'options'),
-    Input('borough-dropdown', 'value'))
+    Input('borough-dropdown', 'value')
+)
 def set_community_options(selected_borough):
     if selected_borough is not None:
         data = rat_sightings()
         filtered_df = data[data['Borough'] == selected_borough]
-        return sorted([cb for cb in filtered_df['Community Board'].unique()])
+        return [{'label': cb, 'value': cb} for cb in sorted(filtered_df['Community Board'].unique())]
     return []
 
-def update_visualizations(selected_community, selected_borough):
-    if selected_community is not None and selected_borough is not None:
-        # Filter data based on selections
-        filtered_df = df[(df['Borough'] == selected_borough) & 
-                           (df['Community Board'] == selected_community)]
+# Define a function to update visualizations
+def update_visualizations(selected_borough, selected_community):
+    df = rat_sightings()
+    filtered_df = df[(df['Borough'] == selected_borough) & (df['Community Board'] == selected_community)]
 
-        # Assuming filtered_df is already defined
-        filter_df = filtered_df.copy()  # Create an independent copy of filtered_df
-        filter_df['Date'] = pd.to_datetime(filter_df['Created Date'])  # Now it's safe to modify filter_df
-        df_line = filter_df.groupby([filter_df['Date'].copy().dt.year, 'Complaint Type']).size().reset_index(name='Counts')
+    # Assuming filtered_df is already defined
+    filter_df = filtered_df.copy()
+    filter_df['Date'] = pd.to_datetime(filter_df['Created Date'])    
+    filter_df = filter_df[filter_df['Date'].dt.year <= 2018]
 
-        # Use px.scatter instead of px.line to add a trendline
-        line_fig = px.scatter(df_line, x='Date', y='Counts', color='Complaint Type', 
-                            trendline="ols",  # Ordinary Least Squares regression line
-                            title='Complaints Over Time')
+    df_line = filter_df.groupby([filter_df['Date'].copy().dt.year, 'Complaint Type']).size().reset_index(name='Counts')
 
-        # Modify the line mode to connect data points
-        line_fig.update_traces(mode='lines+markers')
-        
-        # Mapbox Chart
-        map_fig = px.scatter_mapbox(filtered_df, lat='Latitude', lon='Longitude', color='Complaint Type',
-                                    hover_name='Complaint Type', zoom=12,
-                                    title='Geographical Distribution of Complaints',
-                                    mapbox_style='open-street-map')
+    line_fig = px.line(df_line, x='Date', y='Counts', color='Complaint Type', title='Complaints Over Time')
 
+    # Mapbox Chart
+    map_fig = px.scatter_mapbox(filtered_df, lat='Latitude', lon='Longitude', color='Complaint Type',
+                                hover_name='Complaint Type', zoom=12,
+                                title='Geographical Distribution of Complaints',
+                                mapbox_style='open-street-map')
 
-        return map_fig, line_fig
-    return {}, {}
+    return map_fig, line_fig
 
         
         

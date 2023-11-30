@@ -26,6 +26,8 @@ When developing the interactive graph that allows for the selection of a particu
 
 ### Visualizations
 
+When creating the line chart, I noticed that many Boroughs tended to improve their data collection and no longer attribute sightings to Unspecified community boards. To not allow this change in process to affect the visualization too much, I limited the line charts on that to not go beyond 2018. Otherwise, the increase across the board may be attributed to something other than data collection practices.
+
 ### Usage Scenario
 
 A typical user, possibly an NYC resident, discovers the application through a QR code scanned in the subway. They are directed to the web address, where they can interact with the story.
