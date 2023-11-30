@@ -1,110 +1,96 @@
-Rats, Rodents, and New York City
+# Rats, Rodents, and New York City
 
-Project Update 2
+## Project Update 2
 
-Eric Trautsch
+**Eric Trautsch**
 
-BAIS:6140 Information Visualization
+**BAIS:6140 Information Visualization**
 
-Fall 2023
+**Fall 2023**
 
 ![Project Logo](assets/ratlogo.png)
 
-**Introduction**
+### Introduction
 
-This visualization seeks to show the average New York City (NYC) resident a view of the rat problem the city faces. Showing the growth of the rat population over the years and focusing on educating on the areas of New York City where the issue is common. The rat population poses health risks and illuminates issues with sanitization and a safe living environment.
+This visualization aims to present the average New York City (NYC) resident with a comprehensive view of the city's ongoing rat problem. It highlights the growth of the rat population over time and focuses on educating about the areas in NYC where this issue is most prevalent. The burgeoning rat population not only poses significant health risks but also relates to broader issues related to sanitation and safe living conditions.
 
-To do this, this project focuses on the interconnection of rat sightings, rodent inspections, and restaurant health inspection results. By learning from these datasets, the project seeks to provide practical insights and explore the historical trend and current impact of rat populations. 
+This project combines data from rat sightings, rodent inspections, and restaurant health inspections to provide actionable insights and illuminate the historical and current impact of rat populations in NYC. This tool is designed for both current and prospective NYC residents, offering a clear understanding of the problem's scope and advocating for enhanced citywide rodent management strategies.
 
-This project would ideally be consumed by any New York City resident, or future resident, to be aware of the scope of the problem and to advocate for better and more improved methods to manage this problem by the city of New York City.
+### Implementation
 
-**Implementation**
+Following initial Exploratory Data Analysis (EDA) to identify trends, the development of this visualization adhered to a storyboard-driven tactical path. In pursuit of an optimal User Experience (UX) for a large city's populace, emphasis was placed on creating a modular, web-friendly interface.
 
-The visualization development began by following a storyboard to build a tactical path to completion. This is after some basic EDA to get trends in the data. In order to provide better UX (user experience) for citizens of a large city, I wanted to create a more modular and web-friendly interface.
+The design process was guided by usage scenarios, prioritizing the conveyance of detailed information quickly and succinctly, potentially through a QR code scanned in the subway. The project's current focus is on refining the visualizations' narrative and structural elements.
 
-Designing the interface from the usage scenario makes me focus on the overall story. The goal of the visualization is to provide New Yorkers with the details quickly and simply, possibly by scanning a QR code on the subway. My focus was on creating the overall story scaffolding, and will continue improve to improve the visualizations as the project continues to develop.
+View the Visualizations that will be used here: [Rats, Rodents, and New York City Visualization](https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes)
 
-See Visualizations here: [https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes](https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes)
+View source of Dash application here. [Dash appliation source](https://github.com/ericTrautsch/bais6140project)
 
-**Project Writeup:**
+### Project Writeup:
 
-**Data**
+#### Data
 
-Limited data preprocessing has been needed at this point. Relationships between the datasets have been made. There are some inconsistencies between the datasets, but those are resolved with calculated fields to change spelling/capitalization of strings. 
+So far, data preprocessing has been minimal, focusing on establishing relationships between datasets. Inconsistencies, primarily in string formats, have been addressed using calculated fields for standardization.
 
 ![Data relationship graph](assets/relationship.png)
 
-Note: I have not included Data Dictionaries and the three included datasets selected in the Project Proposal. Please refer to it for information about the Data.
- The main points remain the same, but the focus on a call to action to the public has been included to match the format of a 'grassroots/underground' style information sharing.
-**Big Idea + Storyboard**
+Note: Data Dictionaries and detailed dataset descriptions from the Project Proposal are not included here. Please refer to the initial proposal for comprehensive data information. The project's main themes remain consistent, with an added emphasis on public engagement, reflecting a 'grassroots/underground' style of information dissemination.
 
-For this project update, I will highlight the parts of my initial storyboard that I have completed in Yellow. There have been minor changes to the story, focusing on the impacts of historical data and with some learnings about the public health data. Story is very similar to previous and focused on showing the public health and historical changes in the rat population in NYC.
+#### Big Idea + Storyboard
 
-Big Idea
+The narrative remains largely unchanged, focusing on the public health implications and historical data trends concerning NYC's rat population.
 
-This project seeks to empower the NYC public with practical insights around urban rodent populations, including its effects on public health and how this has changed historically in the NYC area.
+**Big Idea**
 
-Idea: Introduce public audience to concern of growing urban rat population in NYC, highlight impacts on public health (restaurant inspections) and general environment.
+The project's central goal is to empower NYC's public with practical insights about urban rodent populations, their impact on public health, and historical changes in the area.
 
-- Display current distribution of rat population/sightings, finding hotspots and areas of focus for inspection
-- Provide any maps to correlate rodent populations to environmental factors
+- **Public health**: Highlight the health risks associated with the rat population, including disease transmission. Explore the relationship between rat sightings and health inspection results, emphasizing food safety.
+- **Historical**: Provide a historical perspective on rodent population changes, evaluating city initiatives' effectiveness.
+- **Recommendations**: Suggest actionable steps for the NYC public; promoting reporting mechanisms and advocating for a safer city.
 
-_Public health_
+### Visualization
 
-- Public health risks associated with rat population, transmission of disease, etc
-- Show relationship between rat sighting and health inspection results, highlight food safety
+The current visualizations display rat populations and sightings, with a focus on historical trends. The NYC Map is an interactive dashboard illustrating these changes over time.
 
-_Historical_
-
-- View historical view of rodent population, compare to current
-- Possibly show city initiatives and how they were successful/not successful
-
-_Recommendations_
- The main points remain the same, but the focus on a call to action to the public has been included to match the format of a 'grassroots/underground' style information sharing.
-- Any call to action for NYC public; reporting rodent population and promoting a safer NYC
-
-**Visualization**
-
-Viz about current rat populations/sightings, including focus on historical population. Included NYC Map. For now, my interactive dashboard is showing the changes in the rat population over time, meeting the historical requirements of showing the growth over time.
-
-Using point marks and color channels, for the most part.
+Using point marks and color channels, the visualizations are designed to be informative and engaging.
 
 ![Rat Sightings Visualization](assets/LinewithDots.png)
 
-Views are linked together in a single Tableau Story. See the current iteration here. [https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes](https://public.tableau.com/app/profile/eric.trautsch/viz/RatsRodentsAndNewYorkCity/RatsRodentsandNYC?publish=yes)
+The views are integrated into a single Dash dashboard. [View source here](https://github.com/ericTrautsch/bais6140project)
 
-For this second view, we have rat sightings overlayed on critical restaurant inspections. This was to try to discover a correlation between rat sightings and critical restaurant inspections. This chart uses points and colors as channels. The colors map to the bar charts on the side, which use length as a channel and (effectively) continue the color channel from the map.
+A secondary view overlays rat sightings with critical restaurant inspections to explore potential correlations. This visualization uses points and color channels, with bar charts on the side continuing the color narrative.
 
-The design that I've used up to this point is focused on creating a format that can be viewed on somewhere like a subway. Being able to show new Yorkers this data in a more passive way can help promote general awareness, and a link to the usage could be included. This usage structure requires that some visualizations are able to be printed or displayed on a monitor (eg: the historical growth over time), and linked to the full interactive components of the visualization.
+The design is tailored for passive consumption, such as in subway displays, promoting broader public awareness.
 
 ![Rats and Critical Resturant Violations](assets/RackMultipart20231128-1-4lmy3i_html_1ac2a5ae7497fed7.png)
 
-Viz attend to address:
+The visualizations address:
 
-- Current state
-- Public health concerns
-- Historical trends
-- Recommendations and suggestions based on previous
+- Current state and public health concerns.
+- Historical trends.
+- Recommendations based on data analysis.
 
-**Usage Scenario**
+These views integrated into the dash view, will allows for more customization of the UX while viewing the dashboard. At this time, visualzations are selected using this slider:
 
-A user is interested in viewing the application. In particular, this NYC resident may have scanned a flyer with a QR code on the subway. They are brought to this web address, and can interact with this story.
+![Slider](assets/slider.png)
+
+This can be updated and adjusted to best fit the UX, although the slider has already seen an improved in a minimalist UX, which was the goal of this shift. Future work includes integrating Tableau visualizations, and updating interactivity in the Dash application to provide even better UX. Finally, creating another visualization that combines all three datasets with maximum interactivity; focusing on allowing consumers of this application to have maximum control and discover their own insights about their neighborhood.
+
+### Usage Scenario
+
+A typical user, possibly an NYC resident, discovers the application through a QR code scanned in the subway. They are directed to the web address, where they can interact with the story.
 
 ![Rat Sightings Over Time Animation](assets/AnimationOfHistoricalSightingsOverTime.png)
 
-This view is web and mobile native, and will allow a user to quickly interact with visualizations and see more details and calls to action.
+The platform is optimized for both web and mobile, enabling quick interaction with detailed visualizations and calls to action.
 
 ![Call to Action](assets/CalltoAction.png)
 
-**Reflection**
+### Reflection
 
-From the initial proposal, the project is quite similar. I still plan to focus on the historical, public health, and critical resturant violations. However, I plan to focus on delivering the visualizations in an effective way. The main points remain the same, but the focus on a call to action to the public has been included to match the format of a 'grassroots/underground' style information sharing.
+The project remains aligned with the initial proposal, maintaining a focus on historical data, public health, and critical restaurant violations. The primary evolution lies in enhancing the delivery mechanism of the visualizations, making them more interactive and accessible. Technical advancements have included adopting new tools like Dash and Plotly, inspired by [The Pudding](https://pudding.cool/). This shift aims to emulate styles seen in modern data journalism.
 
-For this iteration 2, I have focused on refining the delivery, so the visualization goals are similar. However, the focus on interactivity has increased, since my goal of improving deliveribility has increased. My visualization goals are simple and plan to focus on explaining the data and finding ways to call to action.
-
-Technical goals have increased quite drastically. I have began using new tools (Dash)[https://dash.plotly.com/] and thereby [plotly](https://plotly.com/). This is heavily inspired by the (pudding)[https://pudding.cool/] and my goal with this visualization was to begin to mimic the technical style of these visualizations, focusing on a high performing deliveriblity. As far as plotting goes, the technical difficulty of plotly charts are similar to Tableau, just a different format to create. I plan to use a combination, and have migrated some charts from Tableau to this other interactive format.
-
-**Project Management and Team Assessment**
+### Project Management and Team Assessment
 
 | **Task**                | **Completed** | **Estimated Hours** | **Actual Hours** |
 | ----------------------- | ------------- | ------------------- | ---------------- |
@@ -118,11 +104,7 @@ Technical goals have increased quite drastically. I have began using new tools (
 
 All work was completed by Eric (only member of the project team).
 
-**Credits**
+### Credits
 
 - NYC OpenData
 - Course Notes
-- DALL-E AI Model for generating the logo.
-
-
-

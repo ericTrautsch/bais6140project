@@ -31,15 +31,18 @@ fig = px.scatter_mapbox(cumulative_df,
                         animation_frame="animation_year", 
                         #color="some_other_column", 
                         #size="another_column",
-                        hover_name="year", 
+                        hover_name="Unique Key",
+                        hover_data=['Complaint Type', 'Descriptor', 'Street Name', 'Borough'], 
                         zoom=10,
-                        mapbox_style="open-street-map"
+                        mapbox_style="open-street-map",
+                        color_discrete_sequence=['gray']
                         )
 fig.update_traces(
     marker=dict(
-        size=3,  # Smaller points, adjust size as needed
+        size=2,  # Smaller points, adjust size as needed
         color='gray',  # Monochrome color, you can adjust the shade as needed
-        opacity=0.6  # Adjust opacity for better visibility if needed
+        opacity=0.7,  # Adjust opacity for better visibility if needed
+        symbol='circle'
     )
 )
 

@@ -4,7 +4,7 @@ def rat_sightings():
     df = pd.read_csv(
         './data/Rat_Sightings_20231112.csv', dtype={20: str}
     )
-    df.dropna(subset=['Created Date', 'Longitude', 'Latitude'], inplace=True)
+    df.dropna(subset=['Created Date', 'Longitude', 'Latitude', 'Complaint Type', 'Borough', 'Community Board'], inplace=True)
     return df
 
 if __name__ == '__main__':
