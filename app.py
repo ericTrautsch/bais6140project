@@ -221,17 +221,54 @@ app.layout = dbc.Container(
     ),
 ]),
     html.Div(id='page-content'),
-    story_page_zero(),
-    story_page_one(),
-    story_page_two(),
-    story_page_three(),
-    story_page_four(),
-    story_page_five()
+
+html.Div([
+    # Story slides with borders and padding
+    html.Div(id='slide1', className='story-slide', children=[
+        html.H1('', className='slide-heading'),
+        story_page_zero(),
+        # Add your content for Story Slide 1 here
+    ]),
+    html.Div(id='slide2', className='story-slide', children=[
+        html.H1('Rat Sightings Over Time', className='slide-heading'),
+        # Add your content for Story Slide 2 here
+        story_page_one(),
+    ]),
+    html.Div(id='slide3', className='story-slide', children=[
+        html.H1('Community Board', className='slide-heading'),
+        story_page_two(),
+    ]),
+    html.Div(id='slide4', className='story-slide', children=[
+        html.H1('Critical Resturant Violations', className='slide-heading'),
+        story_page_three(),
+    ]),
+    html.Div(id='slide5', className='story-slide', children=[
+        html.H1('', className='slide-heading'),
+        story_page_five(),
+    ]),
+    
+])
+
+
 ])
     ],
     className='p-3',  # This applies padding to all sides of the container
 )
 
+# JavaScript for smooth scrolling
+app.clientside_callback(
+    """
+    function scrollToSection(id) {
+        const element = document.querySelector(id);
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
+        }
+        return false;  // Prevent default link behavior
+    }
+    """,
+    Output('section1', 'children'),  # Use any Output component
+    Input('section1', 'n_clicks_timestamp'),  # Use any Input component
+)
 # Run the app
 if __name__ == '__main__':
     app.run_server(debug=True, host='127.0.0.1', port=8050)

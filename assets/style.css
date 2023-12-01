@@ -1,0 +1,16 @@
+.story-slide {
+    border: 2px solid #eaeaea; /* Gray border */
+    padding: 20px;
+    margin: 10px 0; /* Vertical spacing between slides */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.nav-link {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff; /* Blue color for links */
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
