@@ -11,24 +11,21 @@ df = rat_sightings()
 # Initialize the Dash app
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
 
-# Define the layout of the app
-app.layout = app.layout = dbc.Container(
-    [
-    html.Div([
-    html.H1("Rats, Rodents & NYC"),
-    dcc.Slider(
-        id='page-slider',
-        min=1,
-        max=5,
-        step=1,
-        marks={1: 'rats sightings over time', 2: 'sightings in YOUR community', 3: 'Critical Resturants', 4: 'Rodent Investigations', 5: 'Conclusions'},
-        value=2,
+# Define the first story page layout
+def story_page_zero():
+    return html.Div([
+    html.Div(
+        className="jumbotron text-center",
+        children=[
+            html.H1("Rats in New York City", className="display-4"),
+            html.P("Welcome to our exploration of rat sightings in the Big Apple. New York City, known for its vibrant culture and towering skyscrapers, also has a hidden resident – rats. Join us as we delve into the world of rat sightings from the perspective of its citizens.", className="lead"),
+        ],
     ),
-    html.Div(id='page-content')
+    dcc.Location(id='url', refresh=False),
 ])
-    ],
-    className='p-3',  # This applies padding to all sides of the container
-)
+
+
+
 # Define the first story page layout
 def story_page_one():
     return html.Div([
@@ -198,23 +195,42 @@ def story_page_five():
     )
 
 
-
-# Callback to update page content based on slider input
-@app.callback(Output('page-content', 'children'),
-              [Input('page-slider', 'value')])
-def display_page(slider_value):
-    if slider_value == 1:
-        return story_page_one()
-    elif slider_value == 2:
-        return story_page_two()
-    elif slider_value == 3:
-        return story_page_three()
-    elif slider_value == 4:
-        return story_page_four()
-    elif slider_value == 5:
-        return story_page_five() 
-    else:
-        return '404 Page Not Found'
+# Define the layout of the app
+app.layout = dbc.Container(
+    [
+    html.Div([
+    html.Div([
+    # Logo and text field in a container
+    html.Div(
+        className="container-fluid",
+        children=[
+            html.Div(
+                className="row",
+                children=[
+                    # Logo column
+                    html.Div(
+                        className="col-2",
+                        children=[
+                            html.Img(src="assets/ratlogo.png", alt="Logo", className="img-fluid"),
+                        ],
+                    ),
+                    # Text field column
+                ],
+            ),
+        ],
+    ),
+]),
+    html.Div(id='page-content'),
+    story_page_zero(),
+    story_page_one(),
+    story_page_two(),
+    story_page_three(),
+    story_page_four(),
+    story_page_five()
+])
+    ],
+    className='p-3',  # This applies padding to all sides of the container
+)
 
 # Run the app
 if __name__ == '__main__':
