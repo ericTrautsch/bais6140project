@@ -9,7 +9,7 @@ Welcome to my BAIS 6140 class project repository. This project is a personal end
 - **Tableau**: A powerful tool for creating rich visualizations and dashboards.
 
 ## Documentation
-For more detailed information about the project, including setup instructions and usage guides, please refer to the documentation available in the `/docs` directory of this repository. You can find the documentation files here:
+For more detailed information about the project, you can find the project writeup here:
 - [Project Writeup](https://github.com/ericTrautsch/bais6140project/blob/main/docs/final_writeup.md)
 
 ## Contact
