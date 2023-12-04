@@ -12,23 +12,49 @@
 
 ### Executive Summary
 
-Teaser image (around cental theme)
+"Rats, Rodents, and NYC" is a comprehensive visualization project by Eric Trautsch, part of the BAIS:6140 Information Visualization course. It delves into the public health implications and historical data trends of New York City's rat population, utilizing datasets from NYC Open Data. The project aims to provide the public with practical insights into urban rodent populations, their impact on public health, and the effectiveness of city initiatives over time.
 
-Description of storyline
+![Tagline Photo](assets/project_tagphoto.png)
 
-Bid idea or three minute story or summmary of each slide and interactive dashboard
+**Big Idea**
+
+The central goal of this project is to empower NYC residents with actionable knowledge about the urban rodent problem that NYC faces. This project focuses on:
+
+1. Historical Perspective
+
+By analyzing historical data, the project provides insight into the changes in the rodent population over time. 
+
+2. Notes about sightings data
+
+Provides an analysis of the sightings data, focusing on when rats are sighted most often in the data
+
+3. Public Health
+
+Highlight the health risk associated with the rat population. Explore the relationship between rat sightings and health inspection results, emphasizing the food waste component of rodent population control in an urban environment.
+
+4. Neighborhood Details
+
+Provide insights for a particular neighborhood group (known as a community board in NYC). Allow consumers to interact and view details that pertain to their neighborhood and see changes over time.
+
+5. Actionable Reccomendations
+
+Provide details and practical steps that residents of NYC can perform to assist in urban rodent control efforts, through activism and lifestyle changes that can support changes to reduce the rodent population.
+
+**Visualizations and Interactivity**
+
+Using Dash, Plotly, and Tableau, this project presents interactive visualizations that facilitate user interaction with the data in an interesting way. The platform is avalible for consumtion on mobile or web applications and is meant to be accessible from a simple link or QR code.
 
 ### Basic Info
 
-Rats, Rodents, and NYC
+Project Title: Rats, Rodents, and NYC
 
-Eric Trautsch
+Team Members: Eric Trautsch
 
 ### Data
 
 For my dataset, I focused my search on NYC Open Data, finding an interesting dataset to propose an interesting question. (How bad is the NYC rat problem?)
 
-[The NYC Rat Sightings dataset can be found here](https://data.cityofnewyork.us/Social-Services/Rat-Sightings/3q43-55fe)
+The NYC Rat Sightings dataset can be found here (https://data.cityofnewyork.us/Social-Services/Rat-Sightings/3q43-55fe)
 
 This dataset consists of rat sightings reported to the Department of Health and Mental Hygiene in NYC since 2010. This data is available frely to the public from the NYC Open Data website. 
 
@@ -80,7 +106,7 @@ Variables of particular interest include:
 | Longitude                      | Geo based Long of the incident location                                                                                                                                                       | Number      |
 | Location                       | Combination of the geo based lat & long of the incident location                                                                                                                              | Location    |
 
-I utilized the [Restaurant Inspection Results dataset (found here)](https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j)
+I utilized the Restaurant Inspection Results dataset (found here)(https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j)
 to augment the first dataset. This contains information about restaurants in NYC and the results of their health inspections. I focuesd on trying to find a correlation between critial resturant inspections and rat sightings. Trying to discover if particular parts of the city are more unclean and if areas with a high density of resturants might be more likely to have a higher rat population. This dataset is intended to support the rat sightings data.
 
 | Column Name           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                        | Type        |
@@ -121,12 +147,6 @@ When developing the interactive graph that allows for the selection of a particu
 Joins were completed using Tableau Relationships on the logical layer.
 ![Data Cleaning For Borough Relationships](assets/DataCleaningIssue.png)
 
-### Visualizations
-
-Note: Some of the figured (particularly the interactive ones) were created using [plotly]() and displayed as a part of my (dash)[https://dash.plotly.com/] application. This application is my final submission, and will be avalible hosted on Azure. Please view (GitHub)[https://github.com/ericTrautsch/bais6140project] to view source code including all documentation.
-
-When creating the line chart, I noticed that many Boroughs tended to improve their data collection and no longer attribute sightings to Unspecified community boards. To not allow this change in process to affect the visualization too much, I limited the line charts on that to not go beyond 2018. Otherwise, the increase across the board may be attributed to something other than data collection practices. I noted this on that story point, since it may cause effects due to the apparant change in data collection processes.
-
 ### Usage Scenario
 
 A typical user, possibly an NYC resident, discovers the application through a QR code scanned in the subway. They are directed to the web address, where they can interact with the story.
@@ -137,7 +157,31 @@ The platform is optimized for both web and mobile, enabling quick interaction wi
 
 ![Call to Action](assets/CalltoAction.png)
 
+### Visualizations
+
+Note: Some of the figured (particularly the interactive ones) were created using plotly() and displayed as a part of my dash(https://dash.plotly.com/) application. This application is my final submission, and will be avalible hosted on Azure. Please view GitHub(https://github.com/ericTrautsch/bais6140project) to view source code including all documentation.
+
+When creating the line chart, I noticed that many Boroughs tended to improve their data collection and no longer attribute sightings to Unspecified community boards. To not allow this change in process to affect the visualization too much, I limited the line charts on that to not go beyond 2018. Otherwise, the increase across the board may be attributed to something other than data collection practices. I noted this on that story point, since it may cause effects due to the apparant change in data collection processes.
+
 ### Reflection
+
+Most enjoyable part was looking through the rat data and enjoying the weirdness of the dataset and problem objective. I liked using whatever software or storytelling technique to create a usable project. 
+
+Least favorite was the documentation and figuring out the small details. I feel the project was over-documented (which is generally okay!), but I didn't enjoy writing about it that much.
+
+From the project proposal, my goals have changed from _create a story in tableau to answer interesting questions about rat sightings_ to _how can I best share and explore rat sightings data and communicate that to an audiaence (more, data-journalism esque)_. 
+
+My technical goals changed quite a bit. I included Plotly and Dash to create a sharable and extendible web-framework. This was a great chance to strech my technical skills and combine the theory that I've learned in this course with my personal development goals. 
+
+My proposal was realistic to complete in Tableau. However, I've found great success and a more unified UI through my hosting strategy and plan to include a QR code linking to the website as part of my presentation.
+
+I was able to implement most of my goals. I would have liked to dig deeper into advanced visualizations, but I was focusing more of a cohesive UI and structure, and didn't have time to include more advanced charts.
+
+I was originally planning to include a Rodent Inspections data, comparing the rodent inspections with the sightings and providing more details about them. I didn't include this as I struggled to combine both of those datasets in a way that provided useful or interesting information. (not a lot of new information in the inspections).
+
+If I was to create this project from scratch, I'd follow a similar path. I would likely try to collect more data about the rat problem, and conduct more studies into the actual effects of the population. I was able to include details about residents can do, but I would like to provide an even better overview of the systemic problem as a whole.
+
+A semi-major refactor was needed to migrate to source controlled work and use the Dash interface. Some charts created in Tableau were re-created with plotly, and others were not and linked via image. In the future, I'd create the story components, and then create the visualization to use.
 
 
 ### Project Management and Team Assessment
@@ -152,7 +196,8 @@ The platform is optimized for both web and mobile, enabling quick interaction wi
 | Final Recording         | 12/3/2023     | 2                   | 1                |
 | Final writeup completed | 12/3/2023     | 10                  | 12               |
 
-All work was completed by Eric (only member of the project team).
+All work was completed by Eric (only member of the project team). No complaints here. 
+
 
 ### Credits
 
@@ -162,3 +207,4 @@ All work was completed by Eric (only member of the project team).
   - Built heavily upon the dash framework to host and manage application
 - Tableau
 - Microsoft Azure for deployment
+- GitHub Source Control
