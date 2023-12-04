@@ -2,14 +2,27 @@
 import dash
 from dash import html, dcc, Input, Output, State
 import dash_bootstrap_components as dbc
-from src.visualizations import html_text, fig
 from src.read_data import rat_sightings
 import plotly.express as px
 import pandas as pd
 
-df = rat_sightings()
+data = rat_sightings()
 # Initialize the Dash app
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.BOOTSTRAP], suppress_callback_exceptions=True)
+
+# Set Mapbox token
+mapbox_token = 'pk.eyJ1IjoiZXRyYXV0c2NoIiwiYSI6ImNscGo3ems1djA1bGcybW52c3RyNzVqc3IifQ.HTNefJHbqlRr9kxjS60HcA'
+
+# Ensure the date column is in datetime format
+data['year'] = pd.to_datetime(data['Created Date']).dt.year
+data = data.sort_values(by='year')
+
+# Cumulatively append data for each year
+cumulative_data = pd.DataFrame()
+for year in data['year'].unique():
+    yearly_data = data[data['year'] <= year].copy()
+    yearly_data['animation_year'] = year  # add a column to indicate the animation frame
+    cumulative_data = pd.concat([cumulative_data, yearly_data])
 
 # Define the first story page layout
 def story_page_zero():
@@ -28,24 +41,74 @@ def story_page_zero():
 
 # Define the first story page layout
 def story_page_one():
+
+    # Create the animated scatter mapbox plot
+    fig = px.scatter_mapbox(cumulative_data, 
+                            lat="Latitude", 
+                            lon="Longitude", 
+                            animation_frame="animation_year", 
+                            #color="some_other_column", 
+                            #size="another_column",
+                            hover_name="Unique Key",
+                            # hover_data=['Complaint Type', 'Descriptor', 'Street Name', 'Borough'], 
+                            zoom=9,
+                            mapbox_style="open-street-map",
+                            color_discrete_sequence=['gray']
+                            )
+    fig.update_traces(
+        marker=dict(
+            size=3,  # Smaller points, adjust size as needed
+            color='gray',  # Monochrome color, you can adjust the shade as needed
+            opacity=0.7,  # Adjust opacity for better visibility if needed
+            symbol='circle'
+        )
+    )
+
+    # Update the layout for a monochrome style
+    fig.update_layout(
+        mapbox=dict(
+            accesstoken=mapbox_token,  # Insert your Mapbox Access Token here
+            style='light',  # Using a light map for a monochrome look
+            center=dict(
+                lon=data['Longitude'].mean(),
+                lat=data['Latitude'].mean()
+            ),
+        ),
+        mapbox_style="open-street-map",  # A monochrome-like, light-colored style
+        showlegend=False,
+        transition={'duration': 30000},  # Transition duration in milliseconds
+    )
+
+    # Prevent automatic animation start and add custom buttons
+    fig.layout.updatemenus = [
+        dict(
+            type="buttons",
+            showactive=False,
+            buttons=[
+                dict(label="Play",
+                    method="animate",
+                    args=[None, {"frame": {"duration": 3000, "redraw": True}, "fromcurrent": True}]),
+            ],
+        )
+    ]
+
+    # Set the initial frame to the first frame (adjust as needed)
+    fig.layout.sliders[0].steps[0]['args'][1]['frame']['duration'] = 0
+
     return html.Div([
-        html.H2("Rat Sightings over Time", className="text-center mb-4"),  # Centered title with margin
         html.Div([
             # Iframe with adjusted height
-            html.Iframe(srcDoc=html_text, width='100%', height='800px', className="mb-3"),  # Height adjusted
-        ], className="row"),
-        html.Div([
-            html.Img(src='/assets/linechart.png'),  # Responsive image
-        ], className="row mt-3"),  # Margin top for spacing
+            # html.Iframe(srcDoc=html_text, width='100%', height='800px', className="mb-3"),  # Height adjusted
+            dcc.Graph(id='map-animation', figure=fig, config={'displayModeBar': False}, style={'width':'650px', 'height': '650px'}, className='center'),
+
+        ], className="col-md-12"),
         # Add other components as needed
     ], className="container")  # Bootstrap container for overall layout
-
-
 
 # Define the second story page layout
 def story_page_two():
     return html.Div([
-    html.H3("Community Board Data Visualization", className="text-center"),
+    html.H3("Rodent Sightings by Community Board", className="text-center"),
     html.P("Select a borough and a community board to see their respective data visualizations."),
 
     dcc.Dropdown(
@@ -77,8 +140,25 @@ def update_graphs(borough, community_board):
         # Update visualizations based on selections
         map_figure, additional_figure = update_visualizations(borough, community_board) 
         return [
-            dcc.Graph(figure=map_figure),
-            dcc.Graph(figure=additional_figure)
+            html.Div([
+                # Map on top
+                html.Div([
+                    dcc.Graph(id='map', figure=map_figure)
+                ], className='row'),
+
+                # Line chart and bar graph next to each other below the map
+                html.Div([
+                    # Line Chart
+                    html.Div([
+                        dcc.Graph(id='line-chart', figure=additional_figure)
+                    ], className='col-md-6'),
+
+                    # Bar Graph
+                    html.Div([
+                        dcc.Graph(id='bar-graph', figure=additional_figure)
+                    ], className='col-md-6')
+                ], className='row')
+            ], className='container-fluid')
         ]
     return html.Div("Select both a borough and a community board to display the visualizations.", style={'textAlign': 'center', 'marginTop': '10px'})
 
@@ -89,37 +169,31 @@ def update_graphs(borough, community_board):
 )
 def set_community_options(selected_borough):
     if selected_borough is not None:
-        data = rat_sightings()
-        filtered_df = data[data['Borough'] == selected_borough]
-        return [{'label': cb, 'value': cb} for cb in sorted(filtered_df['Community Board'].unique())]
+        filtered_data = data[data['Borough'] == selected_borough]
+        return [{'label': cb, 'value': cb} for cb in sorted(filtered_data['Community Board'].unique()) if selected_borough in cb]
     return []
 
 # Define a function to update visualizations
 def update_visualizations(selected_borough, selected_community):
-    df = rat_sightings()
-    filtered_df = df[(df['Borough'] == selected_borough) & (df['Community Board'] == selected_community)]
+    filtered_data = data[(data['Borough'] == selected_borough) & (data['Community Board'] == selected_community)]
 
-    # Assuming filtered_df is already defined
-    filter_df = filtered_df.copy()
-    filter_df['Date'] = pd.to_datetime(filter_df['Created Date'])    
-    filter_df = filter_df[filter_df['Date'].dt.year <= 2018]
+    # Assuming filtered_data is already defined
+    filter_data = filtered_data.copy()
+    filter_data['Date'] = pd.to_datetime(filter_data['Created Date'])    
+    filter_data = filter_data[filter_data['Date'].dt.year <= 2018]
 
-    df_line = filter_df.groupby([filter_df['Date'].copy().dt.year, 'Complaint Type']).size().reset_index(name='Counts')
+    data_line = filter_data.groupby([filter_data['Date'].copy().dt.year, 'Complaint Type']).size().reset_index(name='Counts')
 
-    line_fig = px.line(df_line, x='Date', y='Counts', color='Complaint Type', title='Complaints Over Time')
+    line_fig = px.line(data_line, x='Date', y='Counts', color='Complaint Type', title='Complaints Over Time')
 
     # Mapbox Chart
-    map_fig = px.scatter_mapbox(filtered_df, lat='Latitude', lon='Longitude', color='Complaint Type',
+    map_fig = px.scatter_mapbox(filtered_data, lat='Latitude', lon='Longitude', color='Complaint Type',
                                 hover_name='Complaint Type', zoom=12,
                                 title='Geographical Distribution of Complaints',
                                 mapbox_style='open-street-map')
 
     return map_fig, line_fig
 
-        
-        
-        
-        # Add other components as needed
 def story_page_three():
     return html.Div([
         html.H2("Story Page Two"),
@@ -133,16 +207,18 @@ def story_page_three():
 
 def story_page_four():
     return html.Div([
-        html.H2("Story Page Two"),
-        dcc.Graph(
-            figure={
-                'data': [{'x': [1, 2, 6], 'y': [2, 4, 5], 'type': 'bar', 'name': 'NYC'}],
-                'layout': {'title': 'Another Dash Data Visualization'}
-            }
+    dbc.Row(
+        dbc.Col(
+            html.Img(
+                src='/assets/food_and_rats.png',  # Path to your image
+                style={'width': '100%'},
+            ),
+            # width={'size': 6, 'offset': 3}  # Center the column horizontally
         ),
-    ])
+    ),
+])
 
-def story_page_five():
+def final_page():
     return html.Div(
         style={
             'fontFamily': 'Arial, sans-serif',
@@ -194,7 +270,6 @@ def story_page_five():
         ]
     )
 
-
 # Define the layout of the app
 app.layout = dbc.Container(
     [
@@ -230,21 +305,21 @@ html.Div([
         # Add your content for Story Slide 1 here
     ]),
     html.Div(id='slide2', className='story-slide', children=[
-        html.H1('Rat Sightings Over Time', className='slide-heading'),
+        html.H1('Rat Sightings Over Time', className='jumbotron text-center display4'),
         # Add your content for Story Slide 2 here
         story_page_one(),
     ]),
     html.Div(id='slide3', className='story-slide', children=[
-        html.H1('Community Board', className='slide-heading'),
+        html.H1('Community Board', className='jumbotron text-center display4'),
         story_page_two(),
     ]),
     html.Div(id='slide4', className='story-slide', children=[
-        html.H1('Critical Resturant Violations', className='slide-heading'),
-        story_page_three(),
+        html.H1('Critical Resturant Violations', className='jumbotron text-center display4'),
+        story_page_four(),
     ]),
     html.Div(id='slide5', className='story-slide', children=[
-        html.H1('', className='slide-heading'),
-        story_page_five(),
+        html.H1('', className=''),
+        final_page(),
     ]),
     
 ])
@@ -271,4 +346,4 @@ app.clientside_callback(
 )
 # Run the app
 if __name__ == '__main__':
-    app.run_server(debug=True, host='127.0.0.1', port=8050)
+    app.run_server(debug=True, host='0.0.0.0')
