@@ -38,17 +38,27 @@ for year in data['year'].unique():
 
 # Define the first story page layout
 def story_page_zero():
-    return html.Div([
-    html.Div(
-        className="jumbotron text-center",
-        children=[
-            html.H1("Rats in New York City", className="display-4"),
-            html.P("Welcome to our exploration of rat sightings in the Big Apple. New York City, known for its vibrant culture and towering skyscrapers, also has a hidden resident – rats. Join us as we delve into the world of rat sightings from the perspective of its citizens.Welcome to our interactive dashboard on rat sightings in our community. Through detailed charts, uncover trends, locations, and response efforts related to rat sightings. Gain insights to understand this urban challenge better and learn what you can do to help address it effectively.", className="lead"),
-        ],
-    ),
-    dcc.Location(id='url', refresh=False),
-])
-
+    return html.Div(
+    [
+        html.Div(
+            className="jumbotron text-center",
+            children=[
+                html.H1("Rats in New York City", className="display-4", style={'color': '#2B2B2B'}),
+                html.P(
+                    "Welcome to our exploration of rat sightings in the Big Apple. New York City, known for its vibrant culture and towering skyscrapers, also has a hidden resident – rats. Join us as we delve into the world of rat sightings from the perspective of its citizens. Welcome to our interactive dashboard on rat sightings in our community. Through detailed charts, uncover trends, locations, and response efforts related to rat sightings. Gain insights to understand this urban challenge better and learn what you can do to help address it effectively.",
+                    className="lead",
+                    style={
+                        'fontFamily': 'Arial, sans-serif',
+                        'textAlign': 'center',
+                        'marginBottom': '20px',
+                        'color': '#2B2B2B'  # Adjust the color as needed
+                    }
+                ),
+            ],
+        ),
+        dcc.Location(id='url', refresh=False),
+    ],
+)
 
 
 # Define the first story page layout
@@ -107,21 +117,41 @@ def story_page_one():
     # Set the initial frame to the first frame (adjust as needed)
     fig.layout.sliders[0].steps[0]['args'][1]['frame']['duration'] = 0
 
-    return html.Div([
+    return html.Div(
+    [
         # Use a single column layout
-
-        html.P("Explore the evolving landscape of rat sightings in our community since 2010", className="lead"),
-        dbc.Row([
-            dbc.Col([
-                dcc.Graph(
-                    id='map-animation', 
-                    figure=fig, 
-                    config={'displayModeBar': False}, 
-                    style={'height': '650px'}
+        html.P(
+            "Explore the evolving landscape of rat sightings in our community since 2010",
+            className="lead",
+            style={
+                'fontFamily': 'Arial, sans-serif',
+                'textAlign': 'center',
+                'marginBottom': '20px',
+                'color': '#2B2B2B'  # Adjust the color as needed
+            }
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dcc.Graph(
+                            id='map-animation',
+                            figure=fig,
+                            config={'displayModeBar': False},
+                            style={'height': '650px', 'margin': 'auto'}
+                        )
+                    ],
+                    width=12,
+                    className="d-flex justify-content-center"  # Center the column horizontally
                 )
-            ], width=12, className="d-flex justify-content-center")  # Center the column
-        ], justify="center", align="center", className="h-100"),  # Center the row
-    ], className="container-fluid")  # Use full width of the screen
+            ],
+            justify="center",
+            align="center",
+            className="h-100"  # Center the row vertically
+        ),
+    ],
+    className="container-fluid"  # Use full width of the screen
+)
 
 def story_page_eda():
     data['Created Date'] = pd.to_datetime(data['Created Date'])
@@ -166,46 +196,115 @@ def story_page_eda():
     )
 
 
-    return dbc.Container([
-    dbc.Row([
-        html.P("Notice the frequency of Rat Sightings over the Boroughs, Brooklyn having the largest proportion", className="lead"),
-        dbc.Col(dcc.Graph(id='frequency-borough-chart', figure=fig2), width=12)
-    ]),
-    
-    dbc.Row([
-        html.P("Sightings are rarely on the weekend, during the week sightings are more likely to be recorded and logged", className="lead"),
-        dbc.Col(dcc.Graph(id='day-of-week-chart', figure=fig3), width=12)
-    ]),
-    
-    dbc.Row([
-        html.P("Notice a decrease in sightings over the Winter months, with the population increasing throughout the Spring and Summer", className="lead"),
-        dbc.Col(dcc.Graph(id='time-of-year-chart', figure=fig4), width=12)
-    ]),
-], fluid=True)
+    return dbc.Container(
+    [
+        dbc.Row(
+            [
+                html.P(
+                    "Notice the frequency of Rat Sightings over the Boroughs, Brooklyn having the largest proportion",
+                    className="lead",
+                    style={
+                        'fontFamily': 'Arial, sans-serif',
+                        'textAlign': 'center',
+                        'marginBottom': '20px',
+                        'color': '#2B2B2B'  # Adjust the color as needed
+                    }
+                ),
+                dbc.Col(dcc.Graph(id='frequency-borough-chart', figure=fig2), width=12)
+            ],
+            style={'marginBottom': '30px'}  # Adjust margin as needed
+        ),
+
+        dbc.Row(
+            [
+                html.P(
+                    "Sightings are rarely on the weekend, during the week sightings are more likely to be recorded and logged",
+                    className="lead",
+                    style={
+                        'fontFamily': 'Arial, sans-serif',
+                        'textAlign': 'center',
+                        'marginBottom': '20px',
+                        'color': '#2B2B2B'  # Adjust the color as needed
+                    }
+                ),
+                dbc.Col(dcc.Graph(id='day-of-week-chart', figure=fig3), width=12)
+            ],
+            style={'marginBottom': '30px'}  # Adjust margin as needed
+        ),
+
+        dbc.Row(
+            [
+                html.P(
+                    "Notice a decrease in sightings over the Winter months, with the population increasing throughout the Spring and Summer",
+                    className="lead",
+                    style={
+                        'fontFamily': 'Arial, sans-serif',
+                        'textAlign': 'center',
+                        'marginBottom': '20px',
+                        'color': '#2B2B2B'  # Adjust the color as needed
+                    }
+                ),
+                dbc.Col(dcc.Graph(id='time-of-year-chart', figure=fig4), width=12)
+            ],
+            style={'marginBottom': '30px'}  # Adjust margin as needed
+        ),
+    ],
+    fluid=True
+)
+
 
 # Define the second story page layout
 def story_page_two():
-    return html.Div([
-    html.P("Select your borough community board to learn more about rat sightings in your neighborhood"),
+    return html.Div(
+    [
+        html.P(
+            "Select your borough community board to learn more about rat sightings in your neighborhood",
+            style={
+                'fontFamily': 'Arial, sans-serif',
+                'textAlign': 'center',
+                'marginBottom': '20px',
+                'color': '#2B2B2B'  # Adjust the color as needed
+            }
+        ),
 
-    dcc.Dropdown(
-        id='borough-dropdown',
-        options=[{'label': b, 'value': b} for b in rat_sightings()['Borough'].unique()],
-        placeholder="Select a Borough"
-    ),
-    dcc.Dropdown(
-        id='community-dropdown',
-        placeholder="Select a Community Board"
-    ),
+        dcc.Dropdown(
+            id='borough-dropdown',
+            options=[{'label': b, 'value': b} for b in rat_sightings()['Borough'].unique()],
+            placeholder="Select a Borough",
+            style={'width': '50%', 'margin': 'auto'}
+        ),
 
-    # Conditional rendering of Graphs
-    html.Div(id='visualization-container'),
+        dcc.Dropdown(
+            id='community-dropdown',
+            placeholder="Select a Community Board",
+            style={'width': '50%', 'margin': 'auto', 'marginTop': '10px'}
+        ),
 
-    # Note at the bottom of the page
-    html.Div([
-        html.P("Note: Data collection practices may have changed in recent years. This has led to fewer sightings being attributed to unspecified community boards, resulting in a significant increase in sightings tracked over the past few years")
-    ], style={'textAlign': 'center', 'marginTop': '20px', 'fontSize': '0.9em'})
-])
+        # Conditional rendering of Graphs
+        html.Div(id='visualization-container'),
+
+        # Note at the bottom of the page
+        html.Div(
+            [
+                html.P(
+                    "Note: Data collection practices may have changed in recent years. This has led to fewer sightings being attributed to unspecified community boards, resulting in a significant increase in sightings tracked over the past few years",
+                    style={
+                        'textAlign': 'center',
+                        'marginTop': '20px',
+                        'fontSize': '0.9em',
+                        'color': '#7E7E7E'  # Adjust the color as needed
+                    }
+                )
+            ]
+        )
+    ],
+    style={
+        'fontFamily': 'Arial, sans-serif',
+        'textAlign': 'center',
+        'margin': '20px'
+    }
+)
+
 
 # Callback to display the graphs when options are selected
 @app.callback(
@@ -216,29 +315,57 @@ def update_graphs(borough, community_board):
     if borough and community_board:
         # Update visualizations based on selections
         map_figure, additional_figure, final_fig = update_visualizations(borough, community_board) 
-        return [
-            html.Div([
-                # Map on top
-                html.Div([
-                    dcc.Graph(id='map', figure=map_figure)
-                ], className='row'),
+        return html.Div(
+        [
+            html.Div(
+                [
+                    # Map on top
+                    html.Div(
+                        [dcc.Graph(id='map', figure=map_figure)],
+                        className='row justify-content-center'
+                    ),
 
-                # Line chart and bar graph next to each other below the map
-                html.Div([
-                    # Line Chart
-                    html.Div([
-                        dcc.Graph(id='line-chart', figure=additional_figure)
-                    ], className='col-md-6'),
+                    # Line chart and bar graph next to each other below the map
+                    html.Div(
+                        [
+                            # Line Chart
+                            html.Div(
+                                [dcc.Graph(id='line-chart', figure=additional_figure)],
+                                className='col-lg-6 col-md-12'
+                            ),
 
-                    # Bar Graph
-                    html.Div([
-                        dcc.Graph(id='bar-graph', figure=final_fig)
-                    ], className='col-md-6')
-                ], className='row')
-            ], className='container-fluid')
-        ]
-    return html.Div("Select both a borough and a community board to display the visualizations.", style={'textAlign': 'center', 'marginTop': '10px'})
+                            # Bar Graph
+                            html.Div(
+                                [dcc.Graph(id='bar-graph', figure=final_fig)],
+                                className='col-lg-6 col-md-12'
+                            )
+                        ],
+                        className='row justify-content-center'
+                    )
+                ],
+                className='container-fluid'
+            )
+        ],
+            style={
+                'fontFamily': 'Arial, sans-serif',
+                'textAlign': 'center',
+                'margin': '20px'
+            }
+        )
 
+    # Fallback message when no selection is made
+    fallback_message = html.Div(
+        "Select both a borough and a community board to display the visualizations.",
+        style={
+            'textAlign': 'center',
+            'marginTop': '10px',
+            'fontFamily': 'Arial, sans-serif',
+            'color': '#2B2B2B'
+        }
+    )
+
+    # Return the fallback message if necessary
+    return fallback_message
 # Callback to populate the community dropdown based on the selected borough
 @app.callback(
     Output('community-dropdown', 'options'),
@@ -264,12 +391,12 @@ def update_visualizations(selected_borough, selected_community):
     # Mapbox Chart
     map_fig = px.scatter_mapbox(filtered_data, lat='Latitude', lon='Longitude', color='Complaint Type',
                                 hover_name='Complaint Type', zoom=12,
-                                title=f'Geographical Distribution of Complaints in {selected_community}',
+                                title=f'Geographical Distribution of Sightings in {selected_community}',
                                 hover_data=['Complaint Type', 'Descriptor', 'Street Name'], 
                                 mapbox_style='open-street-map', 
                                 color_discrete_sequence=['gray'])
 
-    line_fig = px.line(data_line, x='Date', y='Counts', color='Complaint Type', title=f'Complaints Over Time in {selected_community}')
+    line_fig = px.line(data_line, x='Date', y='Counts', color='Complaint Type', title=f'Sightings Over Time in {selected_community}')
     line_fig = apply_standard_layout(line_fig)
 
     # Convert 'Created Date' and 'Closed Date' to datetime
@@ -290,90 +417,92 @@ def update_visualizations(selected_borough, selected_community):
     average_time_to_close['Month'] = average_time_to_close['Month'].dt.to_timestamp()
 
     close_fig = px.line(average_time_to_close, x='Month', y='Time to Close',
-                title=f'Average Time to Close Rat Complaints In {selected_community}',
+                title=f'Average Time to Close Rat Sightings In {selected_community}',
                 labels={'Month': 'Month', 'Time to Close': 'Average Time to Close (days)'})
     close_fig = apply_standard_layout(close_fig)
 
 
     return map_fig, line_fig, close_fig
 
-def story_page_three():
-    return html.Div([
-        html.H2("Story Page Two"),
-        dcc.Graph(
-            figure={
-                'data': [{'x': [6, 2, 3], 'y': [2, 4, 5], 'type': 'bar', 'name': 'NYC'}],
-                'layout': {'title': 'Another Dash Data Visualization'}
+def story_page_four():
+    return html.Div(
+    [
+        html.P(
+            "Discover insights into the correlation between rat sightings and restaurants with critical health violations",
+            className="lead",
+            style={
+                'fontFamily': 'Arial, sans-serif',
+                'textAlign': 'center',
+                'marginBottom': '20px',
+                'color': '#2B2B2B'  # Adjust the color as needed
             }
         ),
-    ])
-
-def story_page_four():
-    return html.Div([
-
-    html.P("Discover insights into the correlation between rat sightings and restaurants with critical health violations", className="lead"),
-    dbc.Row(
-        dbc.Col(
-            html.Img(
-                src='/assets/food_and_rats.png',  # Path to your image
-                style={'width': '100%'},
+        dbc.Row(
+            dbc.Col(
+                html.Img(
+                    src='/assets/food_and_rats.png',  # Path to your image
+                    style={'width': '100%', 'maxWidth': '1000px', 'display': 'block', 'marginLeft': 'auto', 'marginRight': 'auto'},
+                ),
+                # width={'size': 6, 'offset': 3} can be uncommented and adjusted for additional column sizing and positioning
             ),
-            # width={'size': 6, 'offset': 3}  # Center the column horizontally
+            justify="center"  # Centers the column in the row
         ),
-    ),
-])
-
+    ],
+    style={
+        'textAlign': 'center',
+        'margin': '20px'
+    }
+)
 def final_page():
     return html.Div(
-        style={
-            'fontFamily': 'Arial, sans-serif',
-            'textAlign': 'center',
-            'margin': '20px'
-        },
-        children=[
-            #html.H2("What YOU can do", style={'color': '#4A4A4A'}),
-            html.Div(
-                dcc.Link(
-                    'Learn more about direct actions you can take',
-                    href='https://www.nyc.gov/site/doh/health/health-topics/rats.page',
-                    style={
-                        'display': 'block',
-                        'marginBottom': '10px',
-                        'color': '#1a73e8',
-                        'textDecoration': 'none'
-                    }
-                ),
-                style={'marginBottom': '20px'}
-            ),
-            html.Div(
-                dcc.Link(
-                    'Contact your community board!',
-                    href='https://www.nyc.gov/site/cau/community-boards/community-boards.page',
-                    style={
-                        'display': 'block',
-                        'marginBottom': '10px',
-                        'color': '#1a73e8',
-                        'textDecoration': 'none'
-                    }
-                ),
-                style={'marginBottom': '20px'}
-            ),
-            html.Div(
-                dcc.Link(
-                    'Compost',
-                    href='https://www.nyc.gov/assets/dsny/site/services/organics',
-                    style={
-                        'display': 'block',
-                        'marginBottom': '10px',
-                        'color': '#1a73e8',
-                        'textDecoration': 'none'
-                    }
-                ),
-                style={'marginBottom': '20px'}
-            ),
-            html.H5('Continue to combat the rat population in NYC!', style={'color': '#2B2B2B'})
-        ]
-    )
+    style={
+        'fontFamily': 'Arial, sans-serif',
+        'textAlign': 'center',
+        'margin': '20px'
+    },
+    children=[
+        # Example heading (uncomment if needed)
+        # html.H2("What YOU can do", style={'color': '#4A4A4A', 'marginBottom': '20px'}),
+
+        dcc.Link(
+            'Learn more about direct actions you can take',
+            href='https://www.nyc.gov/site/doh/health/health-topics/rats.page',
+            style={
+                'display': 'block',
+                'marginBottom': '20px',
+                'color': '#1a73e8',
+                'textDecoration': 'none',
+                'fontSize': '16px'  # Adjust font size as needed
+            }
+        ),
+
+        dcc.Link(
+            'Contact your community board!',
+            href='https://www.nyc.gov/site/cau/community-boards/community-boards.page',
+            style={
+                'display': 'block',
+                'marginBottom': '20px',
+                'color': '#1a73e8',
+                'textDecoration': 'none',
+                'fontSize': '16px'
+            }
+        ),
+
+        dcc.Link(
+            'Compost',
+            href='https://www.nyc.gov/assets/dsny/site/services/organics',
+            style={
+                'display': 'block',
+                'marginBottom': '20px',
+                'color': '#1a73e8',
+                'textDecoration': 'none',
+                'fontSize': '16px'
+            }
+        ),
+
+        html.H5('Continue to combat the rat population in NYC!', style={'color': '#2B2B2B', 'marginTop': '20px'})
+    ]
+)
 
 def data_source_section():
     return dbc.Container(
@@ -388,88 +517,6 @@ def data_source_section():
         className="footer"
     )
 
-# Define the layout of the app
-# app.layout = dbc.Container(
-#     [
-#     html.Div([
-#     html.Div([
-#     # Logo and text field in a container
-#     html.Div(
-#         className="container-fluid",
-#         children=[
-#             html.Div(
-#                 className="row",
-#                 children=[
-#                     # Logo column
-#                     html.Div(
-#                         className="col-2",
-#                         children=[
-#                             html.Img(src="assets/ratlogo.png", alt="Logo", className="img-fluid"),
-#                         ],
-#                     ),
-#                     # Text field column
-#                 ],
-#             ),
-#         ],
-#     ),
-# ]),
-#     html.Div(id='page-content'),
-
-# html.Div([
-#     # Story slides with borders and padding
-#     html.Div(id='slide1', className='story-slide', children=[
-#         html.H1('', className='slide-heading'),
-#         story_page_zero(),
-#         # Add your content for Story Slide 1 here
-#     ]),
-#     html.Div(id='slide2', className='story-slide', children=[
-#         html.H1('Rat Sightings Over Time', className='jumbotron text-center display4'),
-#         # Add your content for Story Slide 2 here
-#         story_page_one(),
-#     ]),
-
-#     html.Div(id='slide4', className='story-slide', children=[
-#         html.H1('Public Health and Rat Sightings', className='jumbotron text-center display4'),
-#         story_page_four(),
-#     ]),
-#     html.Div(id='slide5', className='story-slide', children=[
-#         html.H1('Rat Sightings by Community Board', className='jumbotron text-center display4'),
-#         story_page_two(),
-#     ]),
-
-#     html.Div(id='slide6', className='story-slide', children=[
-#         html.H1('What You Can Do', className='jumbotron text-center display4'),
-#         final_page(),
-#     ]),
-#     html.Div(id='slide3', className='story-slide', children=[
-#         html.H1('Insights About Rat Sightings Data', className='jumbotron text-center display4'),
-#         # Add your content for Story Slide 2 here
-#         story_page_eda(),
-#     ]),
-#      html.Div(id='slide7', className='story-slide', children=[
-#         html.H1('The Data', className=''),
-#         dbc.Container([
-#     html.Hr(),
-#         html.P("Data Sources:", style={'font-weight': 'bold'}),
-#         html.Ul([
-#             html.Li(html.A("Rat Sightings Dataset", 
-#                         href="https://data.cityofnewyork.us/SocialServices/Rat-Sightings/3q43-55fe", 
-#                         target="_blank"), 
-#                     style={'margin-bottom': '10px'}),
-#             html.Li(html.A("New York City Restaurant Inspection Results", 
-#                         href="https://data.cityofnewyork.us/Health/DOHMHNew-York-City-Restaurant-Inspection-Results/43nn-pn8j", 
-#                         target="_blank"))
-#         ]),
-#         ], className="footer")
-#     ]),
-    
-# ])
-
-
-# ])
-#     ],
-#     className='p-3',  # This applies padding to all sides of the container
-# )
 app.layout = dbc.Container(
     [
         # Logo and Header Section
