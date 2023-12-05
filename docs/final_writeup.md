@@ -24,20 +24,21 @@ The central goal of this project is to empower NYC residents with actionable kno
 
 By analyzing historical data, the project provides insight into the changes in the rodent population over time. 
 
-2. Notes about sightings data
-
-Provides an analysis of the sightings data, focusing on when rats are sighted most often in the data
-
-3. Public Health
+2. Public Health
 
 Highlight the health risk associated with the rat population. Explore the relationship between rat sightings and health inspection results, emphasizing the food waste component of rodent population control in an urban environment.
 
-4. Neighborhood Details
+3. Neighborhood Details
 
 Provide insights for a particular neighborhood group (known as a community board in NYC). Allow consumers to interact and view details that pertain to their neighborhood and see changes over time.
 
-5. Actionable Reccomendations
+4. Actionable Reccomendations
 
+
+5. Notes and insights about sightings data
+
+Provides an analysis of the sightings data, focusing on when rats are sighted most often in the data
+ 
 Provide details and practical steps that residents of NYC can perform to assist in urban rodent control efforts, through activism and lifestyle changes that can support changes to reduce the rodent population.
 
 **Visualizations and Interactivity**
