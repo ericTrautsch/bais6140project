@@ -10,6 +10,8 @@
 
 ![Project Logo](assets/ratlogo.png)
 
+Link to hosted implementation (http://ratsightingsinnyc.ezdqawh7g4ahhxcu.centralus.azurecontainer.io:8050/)
+
 ### Executive Summary
 
 "Rats, Rodents, and NYC" is a comprehensive visualization project by Eric Trautsch, part of the BAIS:6140 Information Visualization course. It delves into the public health implications and historical data trends of New York City's rat population, utilizing datasets from NYC Open Data. The project aims to provide the public with practical insights into urban rodent populations, their impact on public health, and the effectiveness of city initiatives over time.
@@ -34,13 +36,12 @@ Provide insights for a particular neighborhood group (known as a community board
 
 4. Actionable Reccomendations
 
+Provide details and practical steps that residents of NYC can perform to assist in urban rodent control efforts, through activism and lifestyle changes that can support changes to reduce the rodent population.
 
 5. Notes and insights about sightings data
 
 Provides an analysis of the sightings data, focusing on when rats are sighted most often in the data
  
-Provide details and practical steps that residents of NYC can perform to assist in urban rodent control efforts, through activism and lifestyle changes that can support changes to reduce the rodent population.
-
 **Visualizations and Interactivity**
 
 Using Dash, Plotly, and Tableau, this project presents interactive visualizations that facilitate user interaction with the data in an interesting way. The platform is avalible for consumtion on mobile or web applications and is meant to be accessible from a simple link or QR code.
@@ -146,23 +147,79 @@ The selected datasets were read in and cleaned using Python. For some charts, gr
 When developing the interactive graph that allows for the selection of a particular community board, I discovered inconsistencies in the data relating to the Borough and Community Board relationship. I fixed this by ensuring that any community board MUST contain the name of the Borough to display, ensuring that these data collection errors are not shown.
 
 Joins were completed using Tableau Relationships on the logical layer.
-![Data Cleaning For Borough Relationships](assets/DataCleaningIssue.png)
-
-### Usage Scenario
-
-A typical user, possibly an NYC resident, discovers the application through a QR code scanned in the subway. They are directed to the web address, where they can interact with the story.
-
-![Rat Sightings Over Time Animation](assets/AnimationOfHistoricalSightingsOverTime.png)
-
-The platform is optimized for both web and mobile, enabling quick interaction with detailed visualizations and calls to action.
-
-![Call to Action](assets/CalltoAction.png)
+![Data Cleaning For Borough Relationships](assets/relationship.png)
 
 ### Visualizations
 
 Note: Some of the figured (particularly the interactive ones) were created using plotly() and displayed as a part of my dash(https://dash.plotly.com/) application. This application is my final submission, and will be avalible hosted on Azure. Please view GitHub(https://github.com/ericTrautsch/bais6140project) to view source code including all documentation.
 
 When creating the line chart, I noticed that many Boroughs tended to improve their data collection and no longer attribute sightings to Unspecified community boards. To not allow this change in process to affect the visualization too much, I limited the line charts on that to not go beyond 2018. Otherwise, the increase across the board may be attributed to something other than data collection practices. I noted this on that story point, since it may cause effects due to the apparant change in data collection processes.
+
+**Interactive Dashboard**
+
+![Interactive Dashboard Initial View](assets/dashboard-5.png)
+
+Users are allowed to select one of NYC's Boroughs, and are prompted to select a community board that is within the Borough that they selected.
+
+![Select Community Board](assets/dashboard-6.png)
+
+Then, the dashboard appears with the details for the Community board they selected, a map showing the geographical locations (marks: point, channel: 2d location).
+
+![Map Shown](assets/dashboard-7.png)
+
+It also contains two line charts, one for encoding count as position, marks being lines. The other encoding average time to close sighting as position.
+
+![Change Community Board Selected](assets/dashboard-8.png)
+
+The users can mouse over and pan through all maps and charts (aside from Tableau one). They can also select another Borough or Community Board and view the differences. These choices were appropriate to allow the user to see the quantity of points in their neighborhood and get a better understanding of the how the problem is managed in their neighborhood. The encoding choices are simple, leading into a stylistic choice to focus on providing details without clutter. 
+
+![View Updated Community Board](assets/dashboard-9.png)
+
+**Static Visualizations**
+
+Note, that for all except the Critical Resturant Violations chart, all charts are interactive and allow the user to pan and view cleanly on the page.
+
+To introduce the story, there is header text explaining the purpose of the page.
+
+![View Story Header](assets/dashboard-1.png)
+
+To view historical sightings over time, an animation is used. The points in previous years are conserved, and the only option is to play the animation. It runs slowly, giving time to view the increase in the number of points clearly. 
+
+Mark: Points
+
+Channel: 2D Position
+
+![Animated Historical Rat Sightings Map](assets/dashboard-2.png)
+
+To view Public Health and Rat Sightings, I created a map overlaying the rat sightings (same color as in previous maps) with resturants who recieved critical health violations. I compare the frequency with the bar charts (color=type, length=magnitude, categories are the same). The axis on these charts are not consistent, but the main takeaway that I want to provide is to be able to compare the relative magnitudes between the bar charts: eg, the interesting aspect being that Brooklyn has more rats but less resturant violations.
+
+The Map helps to provide detail about overlap, and is interesting view in combination with the frequencies.
+
+![Call to Action](assets/dashboard-10.png)
+
+Also included is a Call to Action, which provides links that New Yorkers can access to find ways to help contribute to solving the growing rat problem.
+
+Finally, there are charts that provide general insight about the Rat Sightings data. This is left near the end of the visualization, since it is providing details for people interested in learning more about the dataset. Each of these bar charts uses the same color, encodes the quantity of interest as the channel (position) and uses area/bar as the mark.
+
+![Insights about Rat Sightings Data](assets/dashboard-11.png)
+
+![Insights Continued](assets/dashboard-12.png)
+
+A section is also included linking to the datasets. 
+
+![Dataset Links](assets/dashboard-13.png)
+
+### Usage Scenario
+
+A typical user, possibly an NYC resident, discovers the application through a QR code scanned in the subway. They are directed to the web address, where they can interact with the story.
+
+![QR Code](assets/qr_code.png)
+
+The platform is usable for both web and mobile, enabling quick interaction with detailed visualizations and calls to action.
+
+The included Introduction and Call to Action in the implementation provide the value; helping to bring the excitement and learning about the rat problem and providing an outlet to help improve the problem in an actionable way.
+
+Since the story slides are linked on a single page, once accessing the implementation, simple scrolling will move throughout the dashboard. Rather than explain and provide screenshots, the flow of images in the Visualization section provide an overview of the system in action, in relative order. 
 
 ### Reflection
 
@@ -194,8 +251,8 @@ A semi-major refactor was needed to migrate to source controlled work and use th
 | Iteration 1 complete    | 11/12/2023    | 8                   | 5                |
 | Iteration 2 complete    | 11/28/2023    | 7                   | 7.5              |
 | Final Presentation      | 12/5/2023     | 5                   | 3                |
-| Final Recording         | 12/3/2023     | 2                   | 1                |
-| Final writeup completed | 12/3/2023     | 10                  | 12               |
+| Final Recording         | 12/4/2023     | 2                   | 1                |
+| Final writeup completed | 12/4/2023     | 10                  | 12               |
 
 All work was completed by Eric (only member of the project team). No complaints here. 
 
